@@ -3,6 +3,7 @@ package guru.springframework.domain;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Domain oder Model package normalerweise für Entities
@@ -23,6 +24,14 @@ public class Recipe {
     private String url;
     private String direction;
 
+    //1 zu 1 Beziehung
+    @OneToOne(cascade = CascadeType.ALL)
+    private Notes notes;
+
+    // Eventuell ManyToMany????
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
     @Lob // Lange Werte in DB - BLOB
     private Byte[] image;
 
@@ -33,10 +42,6 @@ public class Recipe {
     public void setId(Long id) {
         this.id = id;
     }
-
-    //1 zu 1 Beziehung
-    @OneToOne(cascade = CascadeType.ALL)
-    private Notes notes;
 
     public String getDescription() {
         return description;
