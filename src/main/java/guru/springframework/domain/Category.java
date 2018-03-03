@@ -1,8 +1,11 @@
 package guru.springframework.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @Entity
 public class Category {
 
@@ -10,24 +13,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String categoryName;
+    private String description;
 
     @ManyToMany(mappedBy = "categories") //mapping findet in categories in recipes statt
     private Set<Recipe> recipes;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
 }
